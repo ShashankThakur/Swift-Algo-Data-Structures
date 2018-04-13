@@ -4,6 +4,25 @@ import UIKit
 
 var str = "Hello, playground"
 
+class Queue <T>{
+    private var list:Array<T>
+    init() {
+        list = Array<T>()
+    }
+    public func enqueue(value:T) {
+        list.append(value)
+    }
+    
+    public func dequeue() ->T? {
+        if list.isEmpty {
+            return nil
+        }
+        else {
+            return list.removeFirst()
+        }
+    }
+}
+
 class BinaryTree<T> {
     var left:BinaryTree?
     var right:BinaryTree?
@@ -41,6 +60,25 @@ func postOrderTraversal(node:BinaryTree<Int>?) {
     print(node!.value)
 }
 
+func levelOrderTraversal(inputNode:BinaryTree<Int>?){
+    var node = inputNode
+    if node == nil {
+        return
+    }
+    let queue = Queue<BinaryTree<Int>>()
+    while (node != nil) {
+        print(node!.value)
+        if let left = node?.left{
+            queue.enqueue(value: left)
+        }
+        if let right = node?.right{
+            queue.enqueue(value: right)
+        }
+        node = queue.dequeue()
+    }
+    
+}
+
 
 
 var root = BinaryTree<Int>(value:1)
@@ -61,3 +99,5 @@ root.left!.right = node5
 //preOrderTraversal(node: root)
 
 //postOrderTraversal(node: root)
+
+//levelOrderTraversal(inputNode: root)

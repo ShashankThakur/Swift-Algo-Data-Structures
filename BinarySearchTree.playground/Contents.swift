@@ -90,7 +90,7 @@ func searchNode<T>(inputNode:Node<T>?,value:T) ->Node<T>? {
 
 func checkIfBSTValid<T>(node:Node<T>?, minValue:T, maxValue:T) ->Bool {
     if(node == nil) {
-        return false
+        return true
     }
     if(node!.value < minValue || node!.value > maxValue) {
         return false
@@ -137,12 +137,13 @@ insert(node: root, value: 30)
 insert(node: root, value: 70)
 insert(node: root, value: 60)
 insert(node: root, value: 80)
-insert(node: root, value: 20)
+var test = insert(node: root, value: 20)
 insert(node: root, value: 40)
 insert(node: root, value: 25)
 insert(node: root, value: 35)
+insert(node: test, value: 100)
 
-
+checkIfBSTValid(node: root, minValue: Int.min, maxValue: Int.max)
 
 
 

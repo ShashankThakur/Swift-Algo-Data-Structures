@@ -48,6 +48,4 @@ func merge(array: inout [Int],startIndex:Int, middleIndex:Int, endIndex:Int) {
     }
 }
 var a = [10, 2, 9, 1,3]
-var helper = Array(repeating: 0, count: a.count)
-helper.count
 mergeSort(input: &a, low: 0, high: a.count - 1)

@@ -1,44 +1,31 @@
 //: Playground - noun: a place where people can play
 
 import UIKit
+import XCPlayground
 
 var str = "Hello, playground"
 
-class Node<T:Equatable> {
-    var value:T
-    var next:Node?
-    init(value:T) {
-        self.value = value
-    }
-}
-class LinkedList<T:Equatable> {
-    private var head:Node<T>?
-    public var isEmpty:Bool {
-        return head == nil
-    }
-    
-    
-    public func insertNodeAtFront(value:T){
-        let newNode = Node(value: value)
-        if let node = head {
-            head = newNode
-            newNode.next = node
-        }else {
-            head = newNode
-        }
-    }
-}
+let adjacencyList = AdjacencyList<Int>()
 
-class GraphNode<T:Hashable>{
-    var neighbors:[T:LinkedList<T>]
-    init() {
-        self.neighbors = [T:LinkedList<T>]()
-    }
-    
-}
-class Graph<T:Hashable>{
-    var vertices:Array<GraphNode<T>>
-    init(){
-        self.vertices = Array<GraphNode<T>>()
-    }
-}
+let node0 = adjacencyList.createVertex(data: 0)
+let node1 = adjacencyList.createVertex(data: 1)
+let node2 = adjacencyList.createVertex(data: 2)
+let node3 = adjacencyList.createVertex(data: 3)
+
+
+adjacencyList.add(.directed, from: node0, to: node1, weight: nil)
+adjacencyList.add(.directed, from: node0, to: node2, weight: nil)
+
+adjacencyList.add(.directed, from: node1, to: node2, weight: nil)
+adjacencyList.add(.directed, from: node2, to: node0, weight: nil)
+
+adjacencyList.add(.directed, from: node2, to: node3, weight: nil)
+
+adjacencyList.add(.directed, from: node3, to: node3, weight: nil)
+
+
+adjacencyList.description
+
+
+adjacencyList.breadthFirstSearch(source:node2)
+

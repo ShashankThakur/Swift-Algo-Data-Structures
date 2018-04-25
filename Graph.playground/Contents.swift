@@ -29,3 +29,6 @@ adjacencyList.description
 
 adjacencyList.breadthFirstSearch(source:node2)
 
+adjacencyList.depthFirstSearch(source: node2)
+
+

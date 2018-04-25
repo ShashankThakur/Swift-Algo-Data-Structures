@@ -89,44 +89,44 @@ public func topologicalSort<T>(graph:Graph<T>)
     {
         if(!visitedSet.contains(node))
         {
-            topSortUtil(&visitedSet, vertex: node, stack: &stack)
+            topSortUtil(visited: &visitedSet, vertex: node, stack: &stack)
         }
     }
     while stack.peek() != nil
     {
         let node = stack.pop()
-        print(node?.label)
+        print(node!.label)
     }
 }
-func topSortUtil<T>(inout visited:Set<Node<T>>,vertex:Node<T>,inout stack:Stack<Node<T>>)
+func topSortUtil<T>( visited:inout Set<Node<T>>,vertex:Node<T>, stack:inout Stack<Node<T>>)
 {
     visited.insert(vertex)
     for edge in vertex.neighbors
     {
         if(!visited.contains(edge.neighbor))
         {
-            topSortUtil(&visited, vertex: edge.neighbor, stack: &stack)
+            topSortUtil(visited: &visited, vertex: edge.neighbor, stack: &stack)
         }
     }
-    stack.push(vertex)
+    stack.push(value: vertex)
 }
 
 var graph = Graph<String>()
-let nodeS = graph.addNode("S")
-let nodeT = graph.addNode("T")
-let nodeV = graph.addNode("V")
-let nodeW = graph.addNode("W")
-let nodeX = graph.addNode("X")
+let nodeS = graph.addNode(label: "S")
+let nodeT = graph.addNode(label: "T")
+let nodeV = graph.addNode(label: "V")
+let nodeW = graph.addNode(label: "W")
+let nodeX = graph.addNode(label: "X")
 
-graph.addEdge(nodeS, neighbor: nodeV)
-graph.addEdge(nodeS, neighbor: nodeW)
+graph.addEdge(source: nodeS, neighbor: nodeV)
+graph.addEdge(source: nodeS, neighbor: nodeW)
 
-graph.addEdge(nodeV, neighbor: nodeT)
-graph.addEdge(nodeW, neighbor: nodeT)
+graph.addEdge(source: nodeV, neighbor: nodeT)
+graph.addEdge(source: nodeW, neighbor: nodeT)
 
-graph.addEdge(nodeT, neighbor: nodeX)
+graph.addEdge(source: nodeT, neighbor: nodeX)
 
-topologicalSort(graph)
+topologicalSort(graph: graph)
 
 
 

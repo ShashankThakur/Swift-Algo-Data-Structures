@@ -40,6 +40,24 @@ public class AdjacencyList <T:Hashable> {
             }
         }
     }
+    
+    fileprivate func dfsUtil(source:Vertex<T>,visited:inout [Vertex<T>:Bool]) {
+        visited[source] = true
+        print(source.description)
+        if let edges = edges(from: source) {
+            for edge in edges {
+                let neighbor = edge.destination
+                if (visited[neighbor] == nil) {
+                    dfsUtil(source: neighbor,visited: &visited)
+                }
+            }
+        }
+    }
+    public func depthFirstSearch(source:Vertex<T>) {
+        var visited :[Vertex<T>:Bool] = [:]
+        dfsUtil(source: source, visited: &visited)
+
+    }
 }
 
 extension AdjacencyList:Graphable {

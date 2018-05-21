@@ -44,7 +44,7 @@ public class Graph<T:Equatable>
     
     public func indexOFNode(label:T) -> Int{
         var index:Int = 0
-        for var i = 0; i < self.nodes.count; i++ {
+        for i in 0 ..< self.nodes.count {
             if (self.nodes[i].label == label)
             {
                 index  = i
@@ -57,48 +57,48 @@ public class Graph<T:Equatable>
 }
 
 var graph = Graph<String>()
-var nodeA = graph.createVertex("A")
-var nodeB = graph.createVertex("B")
-var nodeC = graph.createVertex("C")
-var nodeD = graph.createVertex("D")
-var nodeE = graph.createVertex("E")
+var nodeA = graph.createVertex(label: "A")
+var nodeB = graph.createVertex(label: "B")
+var nodeC = graph.createVertex(label: "C")
+var nodeD = graph.createVertex(label: "D")
+var nodeE = graph.createVertex(label: "E")
 
-graph.addEdgeToVertexWithWeight(nodeA, destination: nodeB, weight: 10)
-graph.addEdgeToVertexWithWeight(nodeA, destination: nodeC, weight: 3)
+graph.addEdgeToVertexWithWeight(source: nodeA, destination: nodeB, weight: 10)
+graph.addEdgeToVertexWithWeight(source: nodeA, destination: nodeC, weight: 3)
 
-graph.addEdgeToVertexWithWeight(nodeB, destination: nodeC, weight: 1)
-graph.addEdgeToVertexWithWeight(nodeB, destination: nodeD, weight: 2)
+graph.addEdgeToVertexWithWeight(source: nodeB, destination: nodeC, weight: 1)
+graph.addEdgeToVertexWithWeight(source: nodeB, destination: nodeD, weight: 2)
 
-graph.addEdgeToVertexWithWeight(nodeC, destination: nodeB, weight: 4)
-graph.addEdgeToVertexWithWeight(nodeC, destination: nodeD, weight: 8)
-graph.addEdgeToVertexWithWeight(nodeC, destination: nodeE, weight: 3)
+graph.addEdgeToVertexWithWeight(source: nodeC, destination: nodeB, weight: 4)
+graph.addEdgeToVertexWithWeight(source: nodeC, destination: nodeD, weight: 8)
+graph.addEdgeToVertexWithWeight(source: nodeC, destination: nodeE, weight: 3)
 
-graph.addEdgeToVertexWithWeight(nodeD, destination: nodeE, weight: 7)
-graph.addEdgeToVertexWithWeight(nodeE, destination: nodeD, weight: 9)
+graph.addEdgeToVertexWithWeight(source: nodeD, destination: nodeE, weight: 7)
+graph.addEdgeToVertexWithWeight(source: nodeE, destination: nodeD, weight: 9)
 
 public func dijasktra<T>(graph:Graph<String>,source:Node<T>){
-    var dist = Array(count: graph.nodes.count, repeatedValue: Int.max)
-    var spt = Array(count: graph.nodes.count, repeatedValue: false)
+    var dist = Array(repeating: Int.max, count: graph.nodes.count)
+    var spt = Array(repeating: false, count: graph.nodes.count)
     
     dist[0] = 0
     
-    for var i = 0; i < graph.nodes.count; i++ {
-        let u = findMinDistance(dist, spt: spt)
+    for _ in 0 ..< graph.nodes.count {
+        let u = findMinDistance(dist: dist, spt: spt)
         spt[u] = true
         for edge in graph.nodes[u].edges {
-            if (dist[u] + edge.weight < dist[graph.indexOFNode(edge.neighbor.label)])
+            if (dist[u] + edge.weight < dist[graph.indexOFNode(label: edge.neighbor.label)])
             {
-                dist[graph.indexOFNode(edge.neighbor.label)] = dist[u] + edge.weight
+                dist[graph.indexOFNode(label: edge.neighbor.label)] = dist[u] + edge.weight
             }
         }
     }
-    printSOlution(dist, graph: graph)
+    printSOlution(dist: dist, graph: graph)
 }
 
 public func findMinDistance(dist:[Int],spt:[Bool]) ->Int{
     var min = Int.max
     var min_index:Int = 0
-    for var v = 0; v < dist.count; v++
+    for v in 0 ..< dist.count
     {
         if (spt[v] == false && dist[v] <= min)
         {
@@ -111,11 +111,11 @@ public func findMinDistance(dist:[Int],spt:[Bool]) ->Int{
 
 
 func printSOlution<T>(dist:[Int],graph:Graph<T>){
-    for var d = 0; d < dist.count; d++
+    for d in 0 ..< dist.count
     {
         print(" vertex \(graph.nodes[d]) and distance from source  \(dist[d])")
     }
 }
 
-dijasktra(graph, source: nodeA)
+dijasktra(graph: graph, source: nodeA)
 

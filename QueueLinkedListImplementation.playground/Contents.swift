@@ -49,7 +49,7 @@ queue.enqueue(value: "test3")
 queue.enqueue(value: "test4")
 queue.enqueue(value: "test5")
 
-
+queue.count
 queue.dequeue()?.value
 queue.dequeue()?.value
 queue.dequeue()?.value

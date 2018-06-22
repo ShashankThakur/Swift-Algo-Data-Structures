@@ -15,6 +15,9 @@ import UIKit
  "()()()"
  ]
  */
+
+
+//Complexity - O(n * Cat(n))
 class Solution {
     func generateParenthesis(_ n: Int) -> [String] {
         var result = [String]()

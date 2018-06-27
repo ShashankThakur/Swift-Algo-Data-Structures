@@ -17,6 +17,7 @@ class BinaryNode<T:Comparable> {
     }
 }
 
+//Complexity - O(n)
 
 func LCA<T>(_ root:BinaryNode<T>?,_ n1:BinaryNode<T>, _ n2: BinaryNode<T>) ->BinaryNode<T>? {
     if(root == nil) {

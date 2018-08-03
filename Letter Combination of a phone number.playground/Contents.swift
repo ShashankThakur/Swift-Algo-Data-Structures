@@ -4,41 +4,43 @@ import UIKit
 
 var str = "Hello, playground"
 
-public func letterCombinations(digits:String?) ->[String]
-{
-
-    var result = [String]()
-    let keyMap = [[],[],["a","b","c"],["d","e","f"],["g","h","i"],["j","k","l"],["m","n","o"],["p","q","r","s"],["t","u","v"],["w","x","y","z"]]
-    let single = ""
-    if digits == nil
-    {
+class Solution {
+    func letterCombinations(_ digits: String) -> [String] {
+        var result = [String]()
+        var dict:[Character:String] = [
+            "0":"",
+            "1":"",
+            "2":"abc",
+            "3":"def",
+            "4":"ghi",
+            "5":"jkl",
+            "6":"mno",
+            "7":"pqrs",
+            "8":"tuv",
+            "9":"wxyz"
+        ]
+        
+        if(digits == nil || digits.isEmpty) {
+            return result
+        }
+        helper(digits,"", &result, dict)
         return result
+        
     }
-    if (digits!.isEmpty)
-    {
-        return result
+    func helper(_ restOfWord: String, _ pathSoFar:String, _ result:inout [String],_ dict:[Character:String]) {
+        if(restOfWord.isEmpty) {
+            result.append(pathSoFar)
+            return
+        }
+        let first = restOfWord[restOfWord.startIndex]
+        var rest = ""
+        if (restOfWord.count >= 2) {
+            rest = String(restOfWord[restOfWord.index(restOfWord.startIndex, offsetBy: 1)..<restOfWord.endIndex])
+        }
+        
+        let letters = dict[first]!
+        for letter in letters {
+            helper(rest, pathSoFar + "\(letter)", &result, dict)
+        }
     }
-    let digitsArray = Array(digits!.characters)
-    helper(&result, single: single, digits: digitsArray, keyMap: keyMap, start: 0)
-    return result
-    
 }
-private func helper(inout result:[String],var single:String, digits:[Character], keyMap:[[String]],start:Int)
-{
-    if(start >= digits.count)
-    {
-        result.append(single)
-        return
-    }
-    
-    let index = Int(String(digits[start]))
-    let current = keyMap[index!]
-    for var i = 0; i < current.count; i++
-    {
-        single = single + current[i]
-        helper(&result, single: single, digits: digits, keyMap: keyMap, start: start + 1)
-        single = single.substringToIndex(single.endIndex.predecessor())
-    }
-    
-}
-letterCombinations("43")

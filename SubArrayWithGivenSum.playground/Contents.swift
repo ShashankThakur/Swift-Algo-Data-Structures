@@ -29,3 +29,5 @@ func subArrayWithGivenSum(_ input:[Int],k:Int) ->Bool{
     }
     return false
 }
+
+12   << 1
